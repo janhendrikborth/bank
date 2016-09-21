@@ -6,12 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public abstract class Account implements AccountMO {
+public class Accounts implements AccountMO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private int accountNumber;
 	protected int balance;
+
+	public Accounts() {
+	};
+	public Accounts(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 
 	public Integer getId() {
 		return id;
@@ -25,10 +31,7 @@ public abstract class Account implements AccountMO {
 		this.balance = balance;
 	}
 
-	public Account(int accountNumber) {
-		super();
-		this.accountNumber = accountNumber;
-	}
+
 
 	/**
 	 * book method uses abstract method checkBookingPreCondition()
@@ -41,11 +44,13 @@ public abstract class Account implements AccountMO {
 			balance += amount;
 		} else {
 			throw new AccountOverdrawnException(
-					"Could not book '" + amount + "'  from account: " + this.getAccountNumber());
+					"Could not book '" + amount + "' from account: " + this.getAccountNumber());
 		}
 	}
 
-	abstract boolean checkBookingPreCondition(int amount);
+	boolean checkBookingPreCondition(int amount) {
+		return false;
+	};
 
 	@Override
 	public int getBalance() {
@@ -73,7 +78,7 @@ public abstract class Account implements AccountMO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Account other = (Account) obj;
+		Accounts other = (Accounts) obj;
 		if (accountNumber != other.accountNumber)
 			return false;
 		return true;

@@ -1,6 +1,6 @@
 package thebank;
 
-public class SavingAccount extends Account {
+public class SavingAccount extends Accounts {
 
 	public SavingAccount(int accountNumber) {
 		super(accountNumber);

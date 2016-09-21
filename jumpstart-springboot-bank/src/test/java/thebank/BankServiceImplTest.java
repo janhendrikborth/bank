@@ -3,6 +3,7 @@ package thebank;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class BankServiceImplTest {
@@ -14,6 +15,7 @@ public class BankServiceImplTest {
 		bank = new BankServiceImpl();
 	}
 
+	@Ignore
 	@Test
 	public void createAccountWithMock() throws Exception {
 		// create mock

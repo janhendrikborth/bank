@@ -1,7 +1,9 @@
 package thebank;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class BankController {
 
 	@Autowired
-	BankService bank;
-	//
+	private AccountsRepository accountRepo;
+
 	// @RequestMapping(value = "/accounts", method = RequestMethod.POST)
 	// public AccountVO createAccount(@RequestParam(value = "startbalance") int
 	// startBalance)
@@ -22,6 +24,14 @@ public class BankController {
 	public String testResponse() {
 		System.out.println("Test");
 		return "Test response";
+	}
+
+	@ResponseBody
+	@RequestMapping("/accounts/{id}")
+	public Accounts findById(@PathVariable Integer id) {
+		Accounts foundAccount = accountRepo.findAccountsById(id);
+
+		return foundAccount;
 	}
 
 	// @RequestMapping(value="/accounts/123", method=RequestMethod.GET)

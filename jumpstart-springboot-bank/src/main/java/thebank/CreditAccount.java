@@ -1,6 +1,6 @@
 package thebank;
 
-public class CreditAccount extends Account {
+public class CreditAccount extends Accounts {
 
 	private int creditLine;
 
