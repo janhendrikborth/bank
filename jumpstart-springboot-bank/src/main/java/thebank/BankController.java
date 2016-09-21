@@ -1,15 +1,15 @@
 package thebank;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/bank")
+
 @RestController
 public class BankController {
 
-	// @Autowired
-	// BankService bank;
+	@Autowired
+	BankService bank;
 	//
 	// @RequestMapping(value = "/accounts", method = RequestMethod.POST)
 	// public AccountVO createAccount(@RequestParam(value = "startbalance") int
@@ -18,7 +18,7 @@ public class BankController {
 	// return bank.createAccount(AccountType.SAVING, startBalance, 0);
 	// }
 
-	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
+	@RequestMapping("/accounts")
 	public String testResponse() {
 		System.out.println("Test");
 		return "Test response";
