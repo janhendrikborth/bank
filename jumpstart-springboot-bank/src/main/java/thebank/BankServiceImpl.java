@@ -2,7 +2,6 @@ package thebank;
 
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class BankServiceImpl implements AtmBankService, BankService {
 
@@ -16,8 +15,7 @@ public class BankServiceImpl implements AtmBankService, BankService {
 			// call factory to create account...
 			account = accountFactory.createAccount(type, balance, creditLine);
 			// store account
-			storeAccount(account);
-			
+			// storeAccount(account);
 			return account;
 		} catch (AccountOverdrawnException e) {
 			throw new AccountCreationException("Could not create account of type: " + type + " with balance: " + balance

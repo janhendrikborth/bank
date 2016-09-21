@@ -3,9 +3,11 @@ package thebank;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public abstract class Account implements AccountMO {
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private int accountNumber;
@@ -38,7 +40,8 @@ public abstract class Account implements AccountMO {
 		if (checkBookingPreCondition(amount)) {
 			balance += amount;
 		} else {
-			throw new AccountOverdrawnException("Could not bool '" + amount + "'  from account: " + this);
+			throw new AccountOverdrawnException(
+					"Could not book '" + amount + "'  from account: " + this.getAccountNumber());
 		}
 	}
 
