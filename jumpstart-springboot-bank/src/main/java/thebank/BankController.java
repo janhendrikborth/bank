@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 public class BankController {
 
@@ -16,25 +15,36 @@ public class BankController {
 	private AccountsRepository accountRepo;
 
 	@RequestMapping(value = "/accounts", method = RequestMethod.POST)
-	public Accounts createAccount(@RequestBody Accounts account)
-			throws AccountCreationException {
-		if(account != null){
-			if (accountRepo.save(account) != null) {
+	public Accounts createAccount(@RequestBody Accounts account) throws AccountCreationException {
+		if (account != null)
+		{
+			if (accountRepo.save(account) != null)
+			{
 				return accountRepo.save(account);
-			} else {
+			} else
+			{
 				throw new AccountCreationException();
 			}
-		}else{
+		} else
+		{
 			throw new AccountCreationException();
 		}
-		
 
 	}
 
 	@RequestMapping("/accounts")
-	public String testResponse() {
-		System.out.println("Test");
-		return "Test response";
+	public Iterable<Accounts> findAllAccounts() {
+
+		Iterable<Accounts> accountList = accountRepo.findAll();
+
+		return accountList;
+	}
+
+	@RequestMapping(value = "/accounts/{id}", method = RequestMethod.DELETE)
+	public void deleteAccount(@PathVariable Integer id) {
+
+		accountRepo.delete(id);
+
 	}
 
 	@ResponseBody
