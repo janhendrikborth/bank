@@ -3,7 +3,6 @@ package thebank;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class BankServiceImplTest {
@@ -15,7 +14,6 @@ public class BankServiceImplTest {
 		bank = new BankServiceImpl();
 	}
 
-	@Ignore
 	@Test
 	public void createAccountWithMock() throws Exception {
 		// create mock
@@ -27,11 +25,11 @@ public class BankServiceImplTest {
 		int creditLine = 0;
 		int timesCalled;
 		SavingAccount savingAccount = new SavingAccount(0);
-		
-		class BooleanFalagHolder  {
+
+		class BooleanFalagHolder {
 			boolean flag = false;
 		}
-		
+
 		BooleanFalagHolder flagHolder = new BooleanFalagHolder();
 
 		// create sut
@@ -68,7 +66,8 @@ public class BankServiceImplTest {
 		int balance = 1000;
 		int creditLine = 0;
 
-		try {
+		try
+		{
 			AccountVO savingAccount = bank.createAccount(AccountType.SAVING, balance, creditLine);
 			AccountVO creditAccount = testSavingAccount(balance, savingAccount);
 			Assert.assertEquals(2, savingAccount.getBalance());
@@ -80,7 +79,8 @@ public class BankServiceImplTest {
 			Assert.assertEquals(expectedCreditAccountBalance, creditAccount.getBalance());
 
 		} catch (AccountOverdrawnException | AccountCreationException | FatalMoneyLossException
-				| TransferFailedException e) {
+				| TransferFailedException e)
+		{
 			// something went terribly wrong...
 			e.printStackTrace();
 		}
@@ -98,7 +98,7 @@ public class BankServiceImplTest {
 			throws AccountOverdrawnException, AccountCreationException {
 		int creditLine;
 		Assert.assertEquals(balance, savingAccount.getBalance());
-		
+
 		// TODO: test fails, account does not exist yet.
 		bank.withdrawal(savingAccount, balance);
 		Assert.assertEquals(0, savingAccount.getBalance());
