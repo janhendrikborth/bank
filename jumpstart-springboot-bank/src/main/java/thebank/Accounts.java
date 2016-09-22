@@ -11,6 +11,11 @@ public class Accounts implements AccountMO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private int accountNumber;
+
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
 	protected int balance;
 
 	public Accounts() {
