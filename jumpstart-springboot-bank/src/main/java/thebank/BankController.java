@@ -37,11 +37,9 @@ public class BankController {
 
 	@RequestMapping(value = "/accounts/{id}", method = RequestMethod.DELETE)
 	public void deleteAccount(@PathVariable Integer id) {
-
 		accountRepo.delete(id);
-
 	}
-
+	
 	@RequestMapping("/accounts/{id}")
 	public Accounts findById(@PathVariable Integer id) {
 		Accounts foundAccount = accountRepo.findAccountsById(id);
@@ -93,5 +91,11 @@ public class BankController {
 		// throw new TransferFailedException("Transaction went wrong. Contact
 		// your admin");
 	}
+	
+	@RequestMapping("/test")
+	public String testString(){
+		return "teeesss123123est";
+	}
+	
 
 }
