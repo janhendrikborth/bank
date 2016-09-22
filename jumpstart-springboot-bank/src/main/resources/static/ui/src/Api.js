@@ -3,7 +3,7 @@ class Api{
 
 	static getAccounts(callback){
 		
-		 fetch('http://localhost:8080/accounts').then(function(res){
+		 fetch('http://localhost:8080/test').then(function(res){
 		      //debugger;
 		      return res.text();
 		    }).then(function(body) {
