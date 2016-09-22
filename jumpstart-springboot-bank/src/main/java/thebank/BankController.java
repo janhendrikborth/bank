@@ -6,25 +6,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class BankController {
+	final String partnerbank = "http://10.10.3.241:8080/accounts/test";
 
 	@Autowired
 	private AccountsRepository accountRepo;
 
 	@RequestMapping(value = "/accounts", method = RequestMethod.POST)
-	public Accounts createAccount(@RequestBody Accounts account) throws AccountCreationException {
-		if (account != null) {
-			if (accountRepo.save(account) != null) {
-				return accountRepo.save(account);
-			} else {
-				throw new AccountCreationException("Account could not be persisted!");
-			}
+	public Accounts createAccount() throws AccountCreationException {
+		Accounts account = new Accounts();
+		int nextnumber;
+		if (accountRepo.findAll()== null) {
+			account.setAccountNumber(1000);
+			account.setBalance(0);
 		} else {
-			throw new AccountCreationException("Account data corrupted or incomplete");
+			nextnumber = accountRepo.getMaxAccountNumber() + 1;
+			account.setAccountNumber(nextnumber);
+			account.setBalance(0);
 		}
-
+		accountRepo.save(account);
+		return account;
 	}
 
 	@RequestMapping("/accounts")
@@ -37,11 +41,9 @@ public class BankController {
 
 	@RequestMapping(value = "/accounts/{id}", method = RequestMethod.DELETE)
 	public void deleteAccount(@PathVariable Integer id) {
-
 		accountRepo.delete(id);
-
 	}
-
+	
 	@RequestMapping("/accounts/{id}")
 	public Accounts findById(@PathVariable Integer id) {
 		Accounts foundAccount = accountRepo.findAccountsById(id);
@@ -53,6 +55,13 @@ public class BankController {
 	public Accounts findByAccountNumber(@PathVariable Integer accountnumber) {
 		Accounts foundAccount = accountRepo.findAccountsByAccountNumber(accountnumber);
 		return foundAccount;
+	}
+
+	@RequestMapping(value = "/accounts/test", method = RequestMethod.POST)
+	public String testMessage(@RequestBody String incomingMsg) {
+		RestTemplate restTemplate = new RestTemplate();
+		String answer = restTemplate.postForObject(partnerbank, incomingMsg, String.class);
+		return "Answer is: " + answer;
 	}
 
 	@RequestMapping(value = "/accounts/book", method = RequestMethod.POST)
@@ -90,8 +99,12 @@ public class BankController {
 		} else {
 			throw new TransferFailedException("Transaction corrupted or empty");
 		}
-		// throw new TransferFailedException("Transaction went wrong. Contact
-		// your admin");
 	}
+	
+	@RequestMapping("/test")
+	public String testString(){
+		return "teeesss123123est";
+	}
+	
 
 }
