@@ -46,6 +46,7 @@ class App extends Component {
 	}
 	
 	deposit(){
+	
 		var accountNumber= this.refs.accountNumber.value;
 		var amount= this.refs.refAmount.value;
 		
@@ -62,6 +63,7 @@ class App extends Component {
 	    this.clickCreateAccount=this.clickCreateAccount.bind(this);
 	    this.getAccountBalance=this.getAccountBalance.bind(this);
 	    this.withdrawal=this.withdrawal.bind(this);
+	    this.deposit=this.deposit.bind(this);
 	    
 	    Api.getAccounts(this.fillfield);
 	}

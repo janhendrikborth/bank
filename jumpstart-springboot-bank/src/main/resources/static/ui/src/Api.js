@@ -59,7 +59,7 @@ class Api{
 		  
 	}
 	
-	static makeDeposit(callback){
+	static makeDeposit(accountNumber,amount,callback){
 		fetch('http://localhost:8080/accounts/book', {
 			  method: 'POST',
 			  headers: {
