@@ -33,12 +33,27 @@ class App extends Component {
 		});
 	}
 	
-	Withdrawal(){
-		Api.makeWithdrawal();
+	withdrawal(){
+		
+		var accountNumber= this.refs.accountNumber.value;
+		var amount= this.refs.refAmount.value;
+		
+		Api.makeWithdrawal(accountNumber,amount,(status)=>{
+			
+			this.setState({status:status});
+		});
+		
 	}
 	
 	deposit(){
-		Api.makeDeposit();
+	
+		var accountNumber= this.refs.accountNumber.value;
+		var amount= this.refs.refAmount.value;
+		
+		Api.makeDeposit(accountNumber,amount,(status)=>{
+			
+			this.setState({status:status});
+		});
 	}
 	constructor(props) {
 	    super(props);
@@ -47,6 +62,8 @@ class App extends Component {
 	    this.fillCreateAccount = this.fillCreateAccount.bind(this);
 	    this.clickCreateAccount=this.clickCreateAccount.bind(this);
 	    this.getAccountBalance=this.getAccountBalance.bind(this);
+	    this.withdrawal=this.withdrawal.bind(this);
+	    this.deposit=this.deposit.bind(this);
 	    
 	    Api.getAccounts(this.fillfield);
 	}
@@ -64,10 +81,7 @@ class App extends Component {
 	      this.setState({balance: account});
 	    });
 	  }
-	
-	
 	didComponentMount(){
-		
 	}
   
 	  
@@ -81,21 +95,23 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
-          {this.state.text}
+          
         </p>
         
         <form id="contactForm">
         <fieldset>
           <ul id="todo-list">
             <input type="text" ref="accountNumber" id="kontoId" name="kontoId" placeholder="Kontonummer" />
-        	 <input type="text" id="amount" name="amount" placeholder="Betrag" value={this.state.balance}/>
-              <input type="button" onClick={this.withdrawal}  value="Withdrawal"/>
+        	 <input type="text" ref="refAmount" id="amount" name="amount" placeholder="Betrag"/>
+              <input type="button" onClick={this.withdrawal}  value="withdrawal"/>
             	  <input type="button" onClick={this.deposit}  value="Deposit"/>
                   <input type="button" onClick={this.getAccountBalance}  value="Balance"/>
             	  <input type="button" onClick={this.clickCreateAccount} value="createAccount"/>
             	  </ul>
           </fieldset>
       </form>
+     <p>{this.state.balance}</p>
+     <p>{this.state.status}</p>
      
       </div>
     );
