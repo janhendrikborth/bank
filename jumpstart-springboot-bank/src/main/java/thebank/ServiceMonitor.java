@@ -16,7 +16,9 @@ public class ServiceMonitor {
 	@AfterReturning("execution(* thebank.BankService.*(..)) && args(account,..)")
 	public void logServiceAccess(JoinPoint joinPoint, Accounts account) {
 
-		logger.info("Completed: " + joinPoint + "from account " + account.getAccountNumber());
+		logger.info("Completed: " + joinPoint + "from account " + account.getAccountNumber() + " with balance "
+				+ account.getBalance());
+		;
 	}
 
 }
