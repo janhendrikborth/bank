@@ -5,6 +5,10 @@ public class AtmIncomingMsg {
 	private int amount;
 	private OperationTypes operationType;
 
+	public AtmIncomingMsg() {
+
+	}
+
 	public int getAccountNumber() {
 		return accountNumber;
 	}

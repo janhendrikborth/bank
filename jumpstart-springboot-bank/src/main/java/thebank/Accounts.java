@@ -19,7 +19,8 @@ public class Accounts implements AccountMO {
 	protected int balance;
 
 	public Accounts() {
-	};
+	}
+
 	public Accounts(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
