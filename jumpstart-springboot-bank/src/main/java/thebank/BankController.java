@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class BankController {
-	final String partnerbankurl = "http://10.10.3.241:8080/bank/accounts/test";
+	final String partnerbankurl = "http://10.10.3.241:8050/bank/accounts/test";
 	final String myurl = "http://localhost:8080/accounts/test";
 
 	@Autowired
@@ -106,7 +106,7 @@ public class BankController {
 					account.setBalance(account.getBalance() + receivedMsg.getAmount());
 					accountRepo.save(account);
 					receivedMsg.setAmount(account.getBalance());
-					System.out.println("Transaction successful! Deposited amount: " + incomingMessage.getAmount());
+					System.out.println("Transaction successful! New balance: " + incomingMessage.getAmount());
 					return receivedMsg;
 				} else {
 					throw new TransferFailedException("Account does not exist");
@@ -117,7 +117,7 @@ public class BankController {
 						account.setBalance(account.getBalance() - receivedMsg.getAmount());
 						accountRepo.save(account);
 						receivedMsg.setAmount(account.getBalance());
-						System.out.println("Transaction successful! Withdrawn amount: " + incomingMessage.getAmount());
+						System.out.println("Transaction successful! New balance: " + incomingMessage.getAmount());
 						return receivedMsg;
 					} else {
 						throw new TransferFailedException("Not enough funds!");
