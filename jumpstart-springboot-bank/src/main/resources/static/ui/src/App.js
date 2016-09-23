@@ -24,6 +24,7 @@ class App extends Component {
 		
 	}
 	
+	
 
 	clickCreateAccount(){
 		//debugger;
@@ -42,6 +43,7 @@ class App extends Component {
 			
 			this.setState({status:status});
 		});
+		this.getAccountBalance();
 		
 	}
 	
@@ -54,6 +56,7 @@ class App extends Component {
 			
 			this.setState({status:status});
 		});
+		this.getAccountBalance();
 	}
 	constructor(props) {
 	    super(props);
@@ -68,6 +71,7 @@ class App extends Component {
 	    Api.getAccounts(this.fillfield);
 	}
 	
+
 	
 	handleTextChange(){
 
@@ -92,7 +96,8 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Welcome  {this.state.account}</h2>
+          
         </div>
         <p className="App-intro">
           
@@ -102,17 +107,25 @@ class App extends Component {
         <fieldset>
           <ul id="todo-list">
             <input type="text" ref="accountNumber" id="kontoId" name="kontoId" placeholder="Kontonummer" />
-        	 <input type="text" ref="refAmount" id="amount" name="amount" placeholder="Betrag"/>
-              <input type="button" onClick={this.withdrawal}  value="withdrawal"/>
-            	  <input type="button" onClick={this.deposit}  value="Deposit"/>
-                  <input type="button" onClick={this.getAccountBalance}  value="Balance"/>
-            	  <input type="button" onClick={this.clickCreateAccount} value="createAccount"/>
-            	  </ul>
+        	<input type="text" ref="refAmount" id="amount" name="amount" placeholder="Betrag"/>
+        	</ul>
+            <ul>
+            
+              <input type="button" onClick={this.withdrawal}value="withdrawal"/>
+        	  <input type="button" onClick={this.deposit}  value="Deposit"/>
+        	
+              
+              <input type="button" onClick={this.getAccountBalance}  value="Balance"/>
+        	  <input type="button" onClick={this.clickCreateAccount} value="createAccount"/>
+        		  
+            </ul>
           </fieldset>
       </form>
-     <p>{this.state.balance}</p>
+      <fieldset>
+     <p>Account Number: </p> 
+     <p>Current balance: {this.state.balance}</p>
      <p>{this.state.status}</p>
-     
+     </fieldset>
       </div>
     );
   }

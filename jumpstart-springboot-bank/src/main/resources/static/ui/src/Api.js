@@ -52,7 +52,7 @@ class Api{
 		
 		}).then(function(res){
 		      //debugger;
-		      return res.json();
+		      return res.text();
 		    }).then(function(body) {
 		     return callback(body);
 		    });
@@ -74,7 +74,7 @@ class Api{
 		
 		}).then(function(res){
 		      //debugger;
-		      return res.json();
+		      return res.text();
 		    }).then(function(body) {
 		     return callback(body);
 		    });
